@@ -57,10 +57,10 @@ func (s FragmentShader) Compile() uint32 {
 
 type Program uint32
 
-func NewProgram(fsh, vsh uint32) Program {
+func NewProgram(fsh FragmentShader, vsh VertexShader) Program {
 	pid := gl.CreateProgram()
-	gl.AttachShader(pid, fsh)
-	gl.AttachShader(pid, vsh)
+	gl.AttachShader(pid, fsh.Compile())
+	gl.AttachShader(pid, vsh.Compile())
 	gl.LinkProgram(pid)
 	checkProgramLinkStatus(pid)
 	return Program(pid)
